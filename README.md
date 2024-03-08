@@ -51,7 +51,8 @@ An Insomnia REST client JSON file is included with the exercise `TaxForms_Insomn
   - ratio: Required; Must be in between 0 and 1
   - comments: Max length of 500 characters
 
-- [ ] Add relevant tests to `TaxFormControllerTest` and `TaxFormServiceTest`
+- [ ] Add relevant tests to `TaxFormControllerTest`
+- [ ] Add relevant tests to `TaxFormServiceTest`
 
 ## Task 2. Add a TaxFormHistory entity and table
 - [ ] Create a new database table and `Entity` `TaxFormHistory`. 
@@ -67,28 +68,36 @@ Reference `ModelMapperConfig` on how to map the entity instance to a DTO instanc
 - [ ] Add relevant tests to `TaxFormServiceTest`
 
 ## Task 3. Add an endpoint to `TaxFormController` to submit a form specified by id
+- [ ] Update `TaxFormStatusUtils` to handle the status change to `SUBMITTED` using the provided status workflow diagram as a reference
 - [ ] Create a new endpoint in `TaxFormController` that accepts id as a path variable.
   - Endpoint must update a `TaxForm` record status to `SUBMITTED` if permitted.
   - Endpoint must create a new `TaxFormHistory` record for the respective `TaxForm` record with a type of `SUBMITTED`
-
-Reference the provided workflow diagram to valid the status change; if it is not permitted or does not follow the status workflow, throw an exception similar to the save endpoint
-
-- [ ] Add relevant tests to `TaxFormControllerTest` and `TaxFormServiceTest`
+  - If the status change is not permitted or does not follow the status workflow, throw an exception similar to the save endpoint
+  - 
+- [ ] Add relevant tests to `TaxFormControllerTest`
+- [ ] Add relevant tests to `TaxFormServiceTest`
+- [ ] Add relevant tests to `TaxFormStatusUtilsTest`
 
 ## Task 4. Add an endpoint to `TaxFormController` to return a form specified by id
+- [ ] Update `TaxFormStatusUtils` to handle the status change to `RETURNED` using the provided status workflow diagram as a reference
 - [ ] Create a new endpoint in `TaxFormController` that accepts id as a path variable.
   - Endpoint must update a `TaxForm` record status to `RETURNED` if permitted.
   - Endpoint must create a new `TaxFormHistory` record for the respective `TaxForm` record with a type of `RETURNED`
+  - If the status change is not permitted or does not follow the status workflow, throw an exception similar to the save endpoint
 
-Reference the provided workflow diagram to valid the status change; if it is not permitted or does not follow the status workflow, throw an exception similar to the save endpoint
+- [ ] Add relevant tests to `TaxFormControllerTest`
+- [ ] Add relevant tests to `TaxFormServiceTest`
+- [ ] Add relevant tests to `TaxFormStatusUtilsTest`
 
-- [ ] Add relevant tests to `TaxFormControllerTest` and `TaxFormServiceTest`
-
-## Task 4. Add an endpoint to `TaxFormController` to accept a form specified by id
+## Task 5. Add an endpoint to `TaxFormController` to accept a form specified by id
+- [ ] Update `TaxFormStatusUtils` to handle the status change to `ACCEPTED` using the provided status workflow diagram as a reference
 - [ ] Create a new endpoint in `TaxFormController` that accepts id as a path variable.
   - Endpoint must update a `TaxForm` record status to `ACCEPTED` if permitted.
   - Endpoint must create a new `TaxFormHistory` record for the respective `TaxForm` record with a type of `ACCEPTED`
+  - If the status change is not permitted or does not follow the status workflow, throw an exception similar to the save endpoint
 
 Reference the provided workflow diagram to valid the status change; if it is not permitted or does not follow the status workflow, throw an exception similar to the save endpoint
 
-- [ ] Add relevant tests to `TaxFormControllerTest` and `TaxFormServiceTest`
+- [ ] Add relevant tests to `TaxFormControllerTest`
+- [ ] Add relevant tests to `TaxFormServiceTest`
+- [ ] Add relevant tests to `TaxFormStatusUtilsTest`
