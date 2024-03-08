@@ -10,12 +10,13 @@ import java.time.ZonedDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class TaxFormDto {
     private Integer id;
     private Integer formYear;
     private String formName;
     private TaxFormStatus status;
-    private TaxFormDetailsDto taxFormDetailsDto;
+    private TaxFormDetailsDto details;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
 }

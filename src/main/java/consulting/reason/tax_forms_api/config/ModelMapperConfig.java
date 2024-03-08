@@ -1,6 +1,8 @@
 package consulting.reason.tax_forms_api.config;
 
+import consulting.reason.tax_forms_api.dto.TaxFormDetailsDto;
 import consulting.reason.tax_forms_api.dto.TaxFormDto;
+import consulting.reason.tax_forms_api.dto.request.TaxFormDetailsRequest;
 import consulting.reason.tax_forms_api.entity.TaxForm;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -14,6 +16,17 @@ public class ModelMapperConfig {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
+        modelMapper.typeMap(TaxFormDetailsRequest.class, TaxFormDetailsDto.class).setConverter(context -> {
+            TaxFormDetailsRequest taxFormDetailsRequest = context.getSource();
+
+            return TaxFormDetailsDto.builder()
+                    .appraisedValue(taxFormDetailsRequest.getAppraisedValue())
+                    .assessedValue(taxFormDetailsRequest.getAssessedValue())
+                    .comments(taxFormDetailsRequest.getComments())
+                    .ratio(taxFormDetailsRequest.getRatio())
+                    .build();
+        });
+
         modelMapper.typeMap(TaxForm.class, TaxFormDto.class).setConverter(context -> {
             TaxForm taxForm = context.getSource();
 
@@ -22,7 +35,7 @@ public class ModelMapperConfig {
                     .formYear(taxForm.getFormYear())
                     .formName(taxForm.getFormName())
                     .status(taxForm.getStatus())
-                    .taxFormDetailsDto(taxForm.getDetails())
+                    .details(taxForm.getDetails())
                     .createdAt(taxForm.getCreatedAt())
                     .updatedAt(taxForm.getUpdatedAt())
                     .build();

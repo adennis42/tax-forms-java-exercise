@@ -8,10 +8,11 @@
 
     <changeSet id="DATA_01" runOnChange="false" author="jb">
         <sql>
-            INSERT INTO tax_forms(form_year, form_name)
-            VALUES (2024, 'Example Form AV 2024-RCC'),
-                   (2024, 'Example Form RP 2024-RCC'),
-                   (2024, 'Example Form ZY 2024-RCC');
+            INSERT INTO tax_forms(form_year, form_name, status)
+            VALUES (2024, 'Form AV 2024-RCC', 'NOT_STARTED'),
+                   (2024, 'Form KM 2024-RCC', 'NOT_STARTED'),
+                   (2024, 'Form RP 2024-RCC', 'SUBMITTED'),
+                   (2024, 'Form ZY 2024-RCC', 'ACCEPTED');
         </sql>
         <comment>
             Populates the tax_forms table.
