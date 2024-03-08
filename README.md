@@ -101,3 +101,7 @@ Reference the provided workflow diagram to valid the status change; if it is not
 - [ ] Add relevant tests to `TaxFormControllerTest`
 - [ ] Add relevant tests to `TaxFormServiceTest`
 - [ ] Add relevant tests to `TaxFormStatusUtilsTest`
+
+### Status Workflow Diagram
+
+![status-workflow.png](status-workflow.png)
