@@ -73,12 +73,11 @@ Reference `ModelMapperConfig` on how to map the entity instance to a DTO instanc
   - Endpoint must update a `TaxForm` record status to `SUBMITTED` if permitted.
   - Endpoint must create a new `TaxFormHistory` record for the respective `TaxForm` record with a type of `SUBMITTED`
   - If the status change is not permitted or does not follow the status workflow, throw an exception similar to the save endpoint
-  - 
 - [ ] Add relevant tests to `TaxFormControllerTest`
 - [ ] Add relevant tests to `TaxFormServiceTest`
 - [ ] Add relevant tests to `TaxFormStatusUtilsTest`
 
-## Task 4. Add an endpoint to return a Tax Form
+## Task 4. Add an endpoint to return a Tax Form (optional)
 - [ ] Update `TaxFormStatusUtils` to handle the status change to `RETURNED` using the provided status workflow diagram as a reference
 - [ ] Create a new endpoint in `TaxFormController` that accepts id as a path variable.
   - Endpoint must update a `TaxForm` record status to `RETURNED` if permitted.
@@ -89,7 +88,7 @@ Reference `ModelMapperConfig` on how to map the entity instance to a DTO instanc
 - [ ] Add relevant tests to `TaxFormServiceTest`
 - [ ] Add relevant tests to `TaxFormStatusUtilsTest`
 
-## Task 5. Add an endpoint to accept a Tax Form
+## Task 5. Add an endpoint to accept a Tax Form (optional)
 - [ ] Update `TaxFormStatusUtils` to handle the status change to `ACCEPTED` using the provided status workflow diagram as a reference
 - [ ] Create a new endpoint in `TaxFormController` that accepts id as a path variable.
   - Endpoint must update a `TaxForm` record status to `ACCEPTED` if permitted.
