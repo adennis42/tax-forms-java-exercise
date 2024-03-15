@@ -20,7 +20,8 @@ and submit to a separate reviewing user group which may either return the submit
 
 Authentication, authorization, and users are outside the scope of the exercise.
 
-One entity table is provided: `TaxForm` [See src/main/java/consulting/reason/taxformsexample/entity/TaxForm.java](src/main/java/consulting/reason/tax_forms_api/entity/TaxForm.java).
+One entity and table is provided: `TaxForm` [See src/main/java/consulting/reason/taxformsexample/entity/TaxForm.java](src/main/java/consulting/reason/tax_forms_api/entity/TaxForm.java).
+
 This entity has the following columns:
 - id (Integer and primary key)
 - form_year (Integer)
@@ -30,7 +31,7 @@ This entity has the following columns:
 - created_at (ZonedDateTime)
 - updated_at (ZonedDateTime)
 
-There are 2 provided endpoints implemented:
+There are 3 provided endpoints implemented:
 1. `GET /forms?year=:year` Used for listing all forms by year
 1. `GET /forms/:id` Used for finding a form by id
   - If a form with the provided id does not exist, a 404 response is returned
