@@ -44,6 +44,9 @@ An Insomnia REST client JSON file is included with the exercise `TaxForms_Insomn
 
 # Assessment Tasks and Instructions
 
+5 assessment tasks are provided targeted towards adding features to an existing application.
+Tasks 4 and 5 are entirely optional.
+
 ## Task 1. Add validation to the save endpoint
 
 - [ ] Add the following validation constraints to the `TaxFormDetailsRequest` class used as the request body in the `PATCH /forms/:id` endpoint:
