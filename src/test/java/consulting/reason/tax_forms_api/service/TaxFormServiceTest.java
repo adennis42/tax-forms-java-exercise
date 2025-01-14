@@ -8,6 +8,10 @@ import consulting.reason.tax_forms_api.entity.TaxForm;
 import consulting.reason.tax_forms_api.enums.TaxFormStatus;
 import consulting.reason.tax_forms_api.exception.TaxFormStatusException;
 import consulting.reason.tax_forms_api.repository.TaxFormRepository;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,9 +19,13 @@ import org.junit.jupiter.params.provider.EnumSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TaxFormServiceTest extends AbstractServiceTest {
     @Autowired
@@ -25,6 +33,8 @@ public class TaxFormServiceTest extends AbstractServiceTest {
     private TaxFormService taxFormService;
     private TaxForm taxForm;
     private TaxFormDto taxFormDto;
+
+    private Validator validator;
     private final TaxFormDetailsRequest taxFormDetailsRequest = TaxFormDetailsRequest.builder()
             .ratio(0.5)
             .assessedValue(100)
@@ -45,6 +55,9 @@ public class TaxFormServiceTest extends AbstractServiceTest {
                 .status(TaxFormStatus.NOT_STARTED)
                 .build());
         taxFormDto = modelMapper.map(taxForm, TaxFormDto.class);
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
     }
 
     @Test
@@ -91,5 +104,24 @@ public class TaxFormServiceTest extends AbstractServiceTest {
         assertThatThrownBy(() -> taxFormService.save(taxForm.getId(), taxFormDetailsRequest))
                 .isInstanceOf(TaxFormStatusException.class)
                 .hasMessage(taxFormStatusException.getMessage());
+    }
+
+    @Test
+    void testHandleValidationErrors() {
+        TaxFormDetailsRequest taxFormDetailsRequestWithInvalidValues = TaxFormDetailsRequest.builder()
+                .ratio(1.5)
+                .assessedValue(1000000)
+                .appraisedValue(1000000L)
+                .comments("Testing")
+                .build();
+
+        Set<ConstraintViolation<TaxFormDetailsRequest>> constraintViolations = validator.validate(taxFormDetailsRequestWithInvalidValues);
+        assertFalse(constraintViolations.isEmpty(), "Validation should fail");
+        Set<String> violationMessages = constraintViolations.stream()
+                .map(ConstraintViolation::getMessage)
+                .collect(Collectors.toSet());
+        assertThat(violationMessages).containsExactlyInAnyOrder("Ratio must be less than 1",
+                "Assessed value must be less than or equal to 100,000",
+                "Appraised value must be less than or equal to 100,000");
     }
 }

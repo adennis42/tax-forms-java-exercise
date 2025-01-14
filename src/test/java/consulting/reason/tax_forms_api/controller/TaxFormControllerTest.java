@@ -49,6 +49,13 @@ public class TaxFormControllerTest extends AbstractControllerTest {
             .updatedAt(ZonedDateTime.now())
             .build();
 
+    private final TaxFormDetailsRequest taxFormDetailsRequestWithInvalidValues = TaxFormDetailsRequest.builder()
+            .ratio(1.5)
+            .assessedValue(100001)
+            .appraisedValue(1000001L)
+            .comments("testing")
+            .build();
+
     @Test
     void testFindAllByYear() throws Exception {
         given(taxFormService.findAllByYear(2024)).willReturn(List.of(taxFormDto));
@@ -94,5 +101,14 @@ public class TaxFormControllerTest extends AbstractControllerTest {
                         .content(objectMapper.writeValueAsString(taxFormDetailsRequest))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testSaveHandlesBadValues() throws Exception {
+        given(taxFormService.save(taxFormDto.getId(), taxFormDetailsRequestWithInvalidValues)).willReturn(Optional.of(taxFormDto));
+        mockMvc.perform(patch(Endpoints.FORMS + "/" + taxFormDto.getId())
+                        .content(objectMapper.writeValueAsString(taxFormDetailsRequestWithInvalidValues))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is4xxClientError());
     }
 }
