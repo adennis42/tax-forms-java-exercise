@@ -79,4 +79,17 @@ public Optional<TaxFormDto> returnForm(Integer id) {
                 return modelMapper.map(taxForm, TaxFormDto.class);
             });
 }
+
+@Override
+@Transactional
+public Optional<TaxFormDto> accept(Integer id) {
+    return taxFormRepository.findById(id)
+            .map(taxForm -> {
+                TaxFormStatusUtils.accept(taxForm);
+
+                taxFormRepository.save(taxForm);
+
+                return modelMapper.map(taxForm, TaxFormDto.class);
+            });
+}
 }

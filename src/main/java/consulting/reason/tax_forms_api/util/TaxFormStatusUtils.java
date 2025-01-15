@@ -52,7 +52,15 @@ public class TaxFormStatusUtils {
     }
 
     public static void accept(TaxForm taxForm) throws TaxFormStatusException {
-        // Implement with task 5
+        if (taxForm.getStatus().equals(TaxFormStatus.ACCEPTED) ||
+                taxForm.getStatus().equals(TaxFormStatus.NOT_STARTED)) {
+            throw new TaxFormStatusException(
+                    taxForm,
+                    TaxFormStatus.ACCEPTED
+            );
+        }
+
+        taxForm.setStatus(TaxFormStatus.ACCEPTED);
     }
 
 }
