@@ -3,9 +3,10 @@ package consulting.reason.tax_forms_api.service;
 import consulting.reason.tax_forms_api.dto.TaxFormDetailsDto;
 import consulting.reason.tax_forms_api.dto.TaxFormDto;
 import consulting.reason.tax_forms_api.dto.request.TaxFormDetailsRequest;
+import consulting.reason.tax_forms_api.entity.TaxFormHistory;
+import consulting.reason.tax_forms_api.enums.TaxFormHistoryType;
 import consulting.reason.tax_forms_api.repository.TaxFormRepository;
 import consulting.reason.tax_forms_api.util.TaxFormStatusUtils;
-import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,4 +53,18 @@ public class TaxFormServiceImpl implements TaxFormService {
                     return modelMapper.map(taxForm, TaxFormDto.class);
                 });
     }
+
+    @Override
+    @Transactional
+    public Optional<TaxFormDto> submit(Integer id) {
+        return taxFormRepository.findById(id)
+                .map(taxForm -> {
+                    TaxFormStatusUtils.submit(taxForm);
+
+                    taxFormRepository.save(taxForm);
+
+                    return modelMapper.map(taxForm, TaxFormDto.class);
+                });
+    }
+
 }

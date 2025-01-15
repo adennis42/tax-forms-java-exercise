@@ -2,6 +2,8 @@ package consulting.reason.tax_forms_api.dto;
 
 import lombok.*;
 
+import java.time.ZonedDateTime;
+
 @Getter
 @Setter
 @Builder
@@ -11,6 +13,6 @@ import lombok.*;
 public class TaxFormHistoryDto {
     private long id;
     private long taxFormId;
-    private String createdAt;
+    private ZonedDateTime createdAt;
     private String type;
 }

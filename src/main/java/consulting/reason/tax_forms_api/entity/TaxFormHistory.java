@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
@@ -23,7 +24,7 @@ public class TaxFormHistory {
     private TaxForm taxForm;
 
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    private ZonedDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
