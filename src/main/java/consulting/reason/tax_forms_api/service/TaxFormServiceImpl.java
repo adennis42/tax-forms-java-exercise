@@ -67,4 +67,16 @@ public class TaxFormServiceImpl implements TaxFormService {
                 });
     }
 
+@Override
+@Transactional
+public Optional<TaxFormDto> returnForm(Integer id) {
+    return taxFormRepository.findById(id)
+            .map(taxForm -> {
+                TaxFormStatusUtils.returnForm(taxForm);
+
+                taxFormRepository.save(taxForm);
+
+                return modelMapper.map(taxForm, TaxFormDto.class);
+            });
+}
 }
